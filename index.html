@@ -1,94 +1,1291 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유기현 | 한라대학교 컴퓨터공학과</title>
-    <style>
-        :root { --primary-color: #2c3e50; --secondary-color: #3498db; --bg-color: #f8f9fa; --accent-color: #8e44ad; }
-        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: var(--bg-color); }
-        header { text-align: center; border-bottom: 3px solid var(--primary-color); padding-bottom: 20px; margin-bottom: 30px; }
-        h1 { color: var(--primary-color); margin-bottom: 5px; font-size: 2.2em; }
-        .title-sub { font-size: 1.2em; color: #666; font-weight: 500; }
-        .contact-info { margin-top: 10px; font-size: 0.95em; color: #555; }
-        
-        section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        h2 { border-left: 6px solid var(--primary-color); padding-left: 15px; color: var(--primary-color); font-size: 1.5em; margin-top: 0; margin-bottom: 20px; }
-        
-        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .skill-card { background: #fdfdfd; padding: 15px; border-radius: 8px; border-left: 4px solid var(--secondary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .skill-name { font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 5px; }
-        
-        .project-box { border: 1px solid #e1e4e8; padding: 25px; border-radius: 8px; background-color: #fcfcfc; position: relative; overflow: hidden; }
-        .project-box::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(to right, var(--secondary-color), var(--accent-color)); }
-        .tech-tag { display: inline-block; background: #eef2f7; color: #444; padding: 2px 10px; border-radius: 15px; font-size: 0.85em; font-weight: bold; margin-right: 5px; margin-bottom: 5px; border: 1px solid #d1d9e6; }
-        
-        footer { text-align: center; margin-top: 50px; font-size: 0.9em; color: #999; }
-        code { background: #eee; padding: 2px 5px; border-radius: 4px; font-family: 'Consolas', monospace; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>유기현 | 포트폴리오</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;color:#222;background:#fff;overflow-x:hidden;}
+
+/* ===== HEADER ===== */
+#header{
+  position:fixed;top:0;left:0;width:100%;z-index:9000;
+  background:#111;
+  transition:background 0.3s;
+}
+#header.scrolled{background:rgba(0,0,0,0.97);box-shadow:0 2px 20px rgba(0,0,0,0.5);}
+.header-inner{
+  max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:72px;
+}
+.logo{
+  color:#fff;font-size:1.05em;font-weight:700;letter-spacing:0.08em;
+  text-decoration:none;white-space:nowrap;cursor:pointer;
+}
+.logo span{color:#3a8eeb;}
+.gnb{display:flex;list-style:none;gap:0;}
+.gnb li a{
+  display:flex;align-items:center;height:72px;padding:0 20px;
+  color:rgba(255,255,255,0.72);font-size:0.84em;font-weight:400;
+  text-decoration:none;letter-spacing:0.02em;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+  white-space:nowrap;cursor:pointer;
+}
+.gnb li a:hover{color:#fff;border-bottom-color:#3a8eeb;}
+.gnb li a.active{color:#fff;border-bottom-color:#3a8eeb;}
+
+/* ===== 페이지 전환 컨테이너 ===== */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ===== HERO ===== */
+#hero{
+  position:relative;width:100%;height:100vh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:#000;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#08101f 0%,#0d1425 55%,#0a0d14 100%);
+}
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(58,142,235,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(58,142,235,0.035) 1px,transparent 1px);
+  background-size:72px 72px;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(58,142,235,0.08) 0%,transparent 70%);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;color:#fff;padding:0 20px;
+}
+.hero-eyebrow{
+  display:inline-block;
+  font-size:0.74em;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(58,142,235,0.9);margin-bottom:26px;
+}
+.hero-content h1{
+  font-size:clamp(2.4em,5vw,4.2em);font-weight:900;
+  line-height:1.15;margin-bottom:22px;letter-spacing:-0.02em;
+}
+.hero-content h1 em{font-style:normal;color:#3a8eeb;}
+.hero-sub{
+  font-size:clamp(0.88em,1.5vw,1.02em);font-weight:300;
+  color:rgba(255,255,255,0.6);margin-bottom:48px;line-height:1.9;
+}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.hero-btn{
+  display:inline-block;
+  border:1.5px solid rgba(255,255,255,0.55);
+  color:#fff;padding:13px 42px;font-size:0.85em;font-weight:500;
+  text-decoration:none;letter-spacing:0.1em;cursor:pointer;
+  transition:background 0.22s,border-color 0.22s;
+  background:transparent;
+}
+.hero-btn:hover{background:rgba(255,255,255,0.1);border-color:#fff;}
+.hero-btn.primary{background:#3a8eeb;border-color:#3a8eeb;}
+.hero-btn.primary:hover{background:#2a7edb;border-color:#2a7edb;}
+
+.scroll-down{
+  position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.35);font-size:0.68em;letter-spacing:0.2em;
+  text-transform:uppercase;cursor:pointer;
+}
+.scroll-down .arr{
+  display:block;width:18px;height:18px;
+  border-right:1.5px solid rgba(255,255,255,0.35);
+  border-bottom:1.5px solid rgba(255,255,255,0.35);
+  transform:rotate(45deg);
+  animation:bounce 1.8s ease infinite;
+}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(6px);}}
+
+/* ===== ABOUT 섹션 (메인) ===== */
+#about-section{display:flex;align-items:stretch;min-height:520px;}
+.about-left{
+  width:42%;background:#1a1a1a;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:90px 72px;
+}
+.sec-num{font-size:0.72em;font-weight:700;letter-spacing:0.22em;color:#3a8eeb;margin-bottom:16px;text-transform:uppercase;}
+.about-left .sec-title{color:#f2f2f2;font-size:clamp(1.6em,2.6vw,2.2em);font-weight:700;line-height:1.35;margin-bottom:22px;}
+.about-left .sec-desc{color:#888;font-size:0.88em;line-height:1.95;margin-bottom:34px;}
+.more-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#3a8eeb;font-size:0.85em;font-weight:500;
+  text-decoration:none;letter-spacing:0.04em;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.2s;width:fit-content;
+  padding-bottom:2px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;
+}
+.more-btn:hover{border-bottom-color:#3a8eeb;}
+.more-btn::after{content:'›';font-size:1.4em;line-height:1;margin-top:-1px;}
+.about-right{width:58%;display:grid;grid-template-columns:1fr 1fr;border-left:1px solid #eee;}
+.about-card{padding:48px 42px;border-bottom:1px solid #eee;border-right:1px solid #eee;transition:background 0.2s;}
+.about-card:nth-child(2n){border-right:none;}
+.about-card:nth-last-child(-n+2){border-bottom:none;}
+.about-card:hover{background:#f7faff;}
+.about-icon{font-size:2em;margin-bottom:18px;}
+.about-card h3{font-size:0.95em;font-weight:700;color:#111;margin-bottom:9px;}
+.about-card p{font-size:0.82em;color:#888;line-height:1.8;}
+
+/* ===== 프로젝트 섹션 ===== */
+.proj-section{display:flex;align-items:stretch;min-height:600px;}
+.proj-section.reverse{flex-direction:row-reverse;}
+.sec-text{
+  width:42%;display:flex;flex-direction:column;justify-content:center;
+  padding:90px 72px;background:#fff;
+}
+.proj-section.dark .sec-text{background:#141414;color:#fff;}
+.sec-title{font-size:clamp(1.5em,2.4vw,2.1em);font-weight:700;line-height:1.3;margin-bottom:18px;color:#111;}
+.proj-section.dark .sec-title{color:#f0f0f0;}
+.sec-desc{font-size:0.88em;color:#777;line-height:1.95;margin-bottom:30px;}
+.proj-section.dark .sec-desc{color:#999;}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.badge{background:#f0f4f8;color:#555;padding:5px 14px;border-radius:2px;font-size:0.76em;font-weight:500;border:1px solid #e0e6ed;letter-spacing:0.02em;}
+.proj-section.dark .badge{background:#232323;color:#bbb;border-color:#333;}
+.sec-gallery{width:58%;overflow:hidden;display:flex;align-items:center;background:#f4f6fa;position:relative;}
+.proj-section.dark .sec-gallery{background:#0f0f0f;}
+.slide-wrap{display:flex;gap:16px;padding:36px 28px;animation:slideAnim 26s linear infinite;width:max-content;}
+.slide-wrap:hover{animation-play-state:paused;}
+@keyframes slideAnim{0%{transform:translateX(0);}100%{transform:translateX(-50%)}}
+.slide-card{flex-shrink:0;width:230px;border-radius:4px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s;}
+.slide-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.13);}
+.proj-section.dark .slide-card{background:#1c1c1c;box-shadow:0 4px 20px rgba(0,0,0,0.45);}
+.slide-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.2em;background:#eaeff8;}
+.proj-section.dark .slide-thumb{background:#1a1a1a;}
+.slide-body{padding:14px 18px 20px;}
+.slide-body h4{font-size:0.83em;font-weight:700;color:#111;margin-bottom:5px;}
+.slide-body p{font-size:0.75em;color:#999;line-height:1.65;}
+.proj-section.dark .slide-body h4{color:#e0e0e0;}
+.proj-section.dark .slide-body p{color:#666;}
+
+/* ===== SKILLS ===== */
+#skills-section{background:#f5f7fa;padding:110px 40px;text-align:center;}
+.skills-wrap{max-width:1200px;margin:0 auto;}
+.section-eyebrow{font-size:0.75em;font-weight:700;letter-spacing:0.22em;color:#3a8eeb;text-transform:uppercase;margin-bottom:14px;}
+.section-heading{font-size:clamp(1.7em,3vw,2.5em);font-weight:700;color:#111;margin-bottom:16px;line-height:1.25;}
+.section-lead{font-size:0.88em;color:#888;line-height:1.85;max-width:500px;margin:0 auto 64px;}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0;border:1px solid #e2e8f0;background:#fff;}
+.skill-card{padding:42px 28px;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;text-align:left;transition:background 0.2s;}
+.skill-card:hover{background:#f0f6ff;}
+.skill-icon{font-size:1.9em;margin-bottom:18px;}
+.skill-card h3{font-size:0.92em;font-weight:700;color:#111;margin-bottom:9px;}
+.skill-card p{font-size:0.78em;color:#999;line-height:1.8;}
+
+/* ===== CONTACT ===== */
+#contact-section{background:#0d0d0d;padding:130px 40px;text-align:center;color:#fff;}
+#contact-section .section-eyebrow{color:#3a8eeb;}
+#contact-section .section-heading{color:#f5f5f5;margin-bottom:18px;}
+#contact-section .section-lead{color:#666;margin-bottom:52px;}
+.contact-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:52px;}
+.contact-item{display:flex;align-items:center;gap:10px;background:#191919;border:1px solid #282828;padding:13px 28px;font-size:0.85em;color:#aaa;letter-spacing:0.02em;}
+.cta-btn{display:inline-block;background:#3a8eeb;color:#fff;padding:15px 56px;font-size:0.88em;font-weight:500;text-decoration:none;letter-spacing:0.08em;transition:background 0.2s;}
+.cta-btn:hover{background:#2a7edb;}
+
+/* ===== 서브 페이지 공통 ===== */
+.page-hero{
+  margin-top:72px;
+  background:#0d1425;padding:88px 48px 80px;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(58,142,235,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(58,142,235,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.page-hero-inner{max-width:1100px;margin:0 auto;position:relative;}
+.page-eyebrow{font-size:0.73em;font-weight:700;letter-spacing:0.24em;color:#3a8eeb;text-transform:uppercase;margin-bottom:18px;display:block;}
+.page-hero h1{font-size:clamp(2em,4vw,3.2em);font-weight:900;color:#f5f5f5;line-height:1.2;margin-bottom:18px;letter-spacing:-0.01em;}
+.page-hero p{font-size:0.9em;color:#778;line-height:1.9;max-width:560px;}
+.page-hero .badges{margin-top:28px;}
+.page-hero .badge{background:rgba(255,255,255,0.07);color:#aaa;border:1px solid rgba(255,255,255,0.1);}
+
+.page-body{max-width:1100px;margin:0 auto;padding:72px 48px 100px;}
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  color:#3a8eeb;font-size:0.84em;font-weight:500;
+  text-decoration:none;letter-spacing:0.03em;
+  margin-bottom:48px;border-bottom:1px solid transparent;
+  transition:border-color 0.2s;padding-bottom:2px;cursor:pointer;
+  background:none;border-top:none;border-left:none;border-right:none;
+}
+.back-btn:hover{border-bottom-color:#3a8eeb;}
+.back-btn::before{content:'‹';font-size:1.4em;line-height:1;}
+
+.page-sec{margin-bottom:64px;}
+.page-sec-label{font-size:0.72em;font-weight:700;letter-spacing:0.22em;color:#3a8eeb;text-transform:uppercase;margin-bottom:14px;}
+.page-sec h2{font-size:1.5em;font-weight:700;color:#111;margin-bottom:20px;line-height:1.3;padding-bottom:16px;border-bottom:1px solid #eee;}
+.page-sec p{font-size:0.9em;color:#666;line-height:1.95;margin-bottom:14px;}
+
+.role-list{list-style:none;padding:0;}
+.role-list li{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:0.88em;color:#555;line-height:1.75;}
+.role-list li:last-child{border-bottom:none;}
+.role-list li strong{flex-shrink:0;width:120px;font-weight:700;color:#111;font-size:0.88em;padding-top:1px;}
+
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid #e8edf3;margin-top:28px;}
+.feature-card{padding:36px 28px;border-right:1px solid #e8edf3;border-bottom:1px solid #e8edf3;transition:background 0.18s;}
+.feature-card:hover{background:#f7faff;}
+.feature-icon{font-size:1.8em;margin-bottom:14px;}
+.feature-card h3{font-size:0.9em;font-weight:700;color:#111;margin-bottom:8px;}
+.feature-card p{font-size:0.8em;color:#999;line-height:1.8;}
+
+/* ===== 웹 과제 페이지 ===== */
+.hw-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:0;border:1px solid #e2e8f0;background:#fff;margin-top:8px;
+}
+.hw-card{
+  padding:44px 32px;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;
+  text-align:left;cursor:pointer;transition:background 0.18s,transform 0.15s;
+  display:flex;flex-direction:column;gap:12px;
+}
+.hw-card:hover{background:#f0f6ff;transform:translateY(-2px);}
+.hw-card-icon{font-size:2.2em;}
+.hw-card h3{font-size:0.95em;font-weight:700;color:#111;margin:0;}
+.hw-card p{font-size:0.8em;color:#999;line-height:1.75;margin:0;}
+.hw-card .hw-arrow{font-size:0.78em;color:#3a8eeb;font-weight:600;letter-spacing:0.04em;margin-top:auto;padding-top:8px;}
+
+/* ===== 웹 과제 서브 공통 ===== */
+.hw-page-hero{
+  margin-top:72px;background:#0a1428;padding:72px 48px 64px;
+  position:relative;overflow:hidden;
+}
+.hw-page-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(58,142,235,0.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(58,142,235,0.045) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hw-page-hero-inner{max-width:1000px;margin:0 auto;position:relative;}
+.hw-page-hero h1{font-size:clamp(1.8em,3.5vw,2.8em);font-weight:900;color:#f5f5f5;margin-bottom:10px;letter-spacing:-0.01em;}
+.hw-page-hero p{font-size:0.88em;color:#667;line-height:1.85;}
+.hw-content{max-width:1000px;margin:0 auto;padding:64px 48px 100px;}
+.hw-back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  color:#3a8eeb;font-size:0.84em;font-weight:500;
+  margin-bottom:44px;border-bottom:1px solid transparent;
+  transition:border-color 0.2s;padding-bottom:2px;cursor:pointer;
+  background:none;border-top:none;border-left:none;border-right:none;
+}
+.hw-back-btn:hover{border-bottom-color:#3a8eeb;}
+.hw-back-btn::before{content:'‹';font-size:1.4em;line-height:1;}
+
+/* ===== 계산기 ===== */
+.calc-wrap{display:flex;justify-content:center;padding:20px 0 40px;}
+.calculator{width:280px;border:1px solid #ddd;padding:18px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,0.1);background:#fff;}
+#calc-display{width:100%;height:56px;margin-bottom:16px;text-align:right;font-size:26px;box-sizing:border-box;padding:5px 12px;border:1px solid #e0e0e0;border-radius:6px;background:#f9f9f9;color:#222;}
+.calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.calc-buttons button{padding:16px;font-size:18px;cursor:pointer;border:none;background:#e8e8e8;border-radius:6px;transition:background 0.15s;font-family:inherit;}
+.calc-buttons button:hover{background:#d4d4d4;}
+.calc-op{background:#ff9800!important;color:#fff!important;}
+.calc-op:hover{background:#e68a00!important;}
+.calc-eq{grid-row:span 2;background:#4CAF50!important;color:#fff!important;}
+.calc-eq:hover{background:#45a049!important;}
+.calc-zero{grid-column:span 2;}
+
+/* ===== 달력 ===== */
+.calendar-wrap{max-width:520px;margin:0 auto;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.cal-header h2{font-size:1.15em;font-weight:700;color:#111;}
+.cal-nav{background:#3a8eeb;color:#fff;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:0.9em;font-family:inherit;transition:background 0.15s;}
+.cal-nav:hover{background:#2a7edb;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-day-label{text-align:center;font-size:0.75em;font-weight:700;color:#999;padding:8px 0;letter-spacing:0.05em;}
+.cal-day-label:first-child{color:#e05252;}
+.cal-day-label:last-child{color:#3a8eeb;}
+.cal-cell{min-height:52px;padding:6px;border:1px solid #eee;text-align:center;font-size:0.85em;cursor:pointer;transition:background 0.15s;border-radius:3px;}
+.cal-cell:hover{background:#e8f0fe;}
+.cal-cell.empty{background:transparent;border:none;cursor:default;}
+.cal-cell.today{background:#3a8eeb;color:#fff;font-weight:700;border-color:#3a8eeb;}
+.cal-cell.today:hover{background:#2a7edb;}
+.cal-cell.sunday{color:#e05252;}
+.cal-cell.saturday{color:#3a8eeb;}
+.cal-cell.selected{background:#fff3cd;border-color:#ffc107;font-weight:700;}
+.cal-memo{margin-top:24px;padding:18px;background:#f9f9f9;border:1px solid #eee;border-radius:6px;font-size:0.85em;color:#555;min-height:48px;}
+
+/* ===== 겜블링 ===== */
+.gamble-wrap{max-width:400px;margin:0 auto;text-align:center;padding:20px 0;}
+.gamble-desc{font-size:0.9em;color:#666;margin-bottom:32px;line-height:1.75;}
+.num-container{display:flex;justify-content:center;gap:20px;margin-bottom:28px;}
+.num{
+  width:72px;height:84px;line-height:84px;text-align:center;
+  font-size:52px;font-style:italic;color:#0000cc;
+  border:2px solid #a0a0ff;background:#fcfcfc;
+  cursor:pointer;user-select:none;border-radius:6px;
+  transition:transform 0.1s,box-shadow 0.1s;
+}
+.num:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(58,142,235,0.2);}
+#gamble-msg{
+  color:#cc4488;font-style:italic;font-size:1.05em;
+  cursor:pointer;min-height:28px;margin-top:8px;
+  font-weight:600;
+}
+.gamble-reset-hint{font-size:0.78em;color:#bbb;margin-top:8px;}
+
+/* ===== 동적 변화 ===== */
+.dynamic-wrap{display:flex;flex-direction:column;gap:64px;padding:10px 0 40px;}
+.dynamic-item{text-align:center;}
+.dynamic-item h3{font-size:1em;font-weight:700;color:#111;margin-bottom:8px;}
+.dynamic-item p{font-size:0.83em;color:#999;margin-bottom:22px;}
+.hover-btn-demo{
+  padding:15px 32px;font-size:17px;color:#fff;background:#3498db;
+  border:none;border-radius:8px;cursor:pointer;
+  transition:all 0.3s ease;font-family:inherit;
+}
+.hover-btn-demo:hover{background:#2980b9;transform:translateY(-5px) scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.18);}
+.spinner{width:52px;height:52px;margin:0 auto;border:6px solid #e0e0e0;border-top-color:#e74c3c;border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.morph-box{
+  width:100px;height:100px;margin:0 auto;background:#2ecc71;border-radius:10px;
+  animation:morph 3s ease-in-out infinite alternate;
+}
+@keyframes morph{
+  0%{background:#2ecc71;border-radius:10px;transform:rotate(0deg);}
+  50%{background:#9b59b6;border-radius:50%;transform:rotate(180deg) scale(1.2);}
+  100%{background:#f1c40f;border-radius:10px;transform:rotate(360deg) scale(1);}
+}
+
+/* ===== 설문지 ===== */
+.survey-wrap{max-width:600px;margin:0 auto;}
+.survey-wrap h2{text-align:center;color:#a52a2a;margin-bottom:8px;font-size:1.4em;}
+.survey-wrap .survey-intro{text-align:center;font-size:0.88em;color:#444;margin-bottom:20px;}
+.survey-wrap hr{border:none;border-top:1px solid #ccc;margin-bottom:24px;}
+.survey-form-box{background:pink;padding:24px 28px;margin-bottom:18px;border-radius:4px;}
+.survey-row{margin-bottom:18px;font-size:0.9em;}
+.survey-title{color:#800080;font-weight:700;display:inline-block;width:130px;}
+.survey-row label{margin-right:12px;}
+.survey-row select{padding:4px 8px;border:1px solid #ccc;border-radius:3px;font-size:0.9em;}
+.survey-row textarea{vertical-align:text-bottom;padding:6px;border:1px solid #ccc;border-radius:3px;font-size:0.88em;resize:vertical;width:260px;}
+.survey-msg-title{vertical-align:bottom;}
+.survey-footer{background:#f6c867;padding:7px 18px;border-radius:20px;font-style:italic;font-size:0.85em;color:#333;display:inline-block;margin-top:8px;}
+.survey-submit-wrap{text-align:center;margin-top:20px;}
+.survey-submit{background:#3a8eeb;color:#fff;border:none;padding:12px 40px;font-size:0.9em;font-weight:500;border-radius:4px;cursor:pointer;font-family:inherit;transition:background 0.18s;letter-spacing:0.04em;}
+.survey-submit:hover{background:#2a7edb;}
+#survey-result{margin-top:20px;padding:16px 20px;background:#f0f6ff;border:1px solid #bcd4f5;border-radius:6px;font-size:0.88em;color:#2255aa;display:none;line-height:1.8;}
+
+/* ===== FOOTER ===== */
+footer{background:#080808;color:#444;text-align:center;padding:28px 20px;font-size:0.78em;border-top:1px solid #161616;letter-spacing:0.02em;}
+
+/* ===== 반응형 ===== */
+@media(max-width:960px){
+  .header-inner{padding:0 22px;}
+  .gnb li a{padding:0 12px;font-size:0.78em;}
+  .proj-section,.proj-section.reverse,#about-section{flex-direction:column;}
+  .sec-text,.sec-gallery,.about-left,.about-right{width:100%;}
+  .sec-text,.about-left{padding:60px 28px;}
+  .about-right{grid-template-columns:1fr 1fr;}
+  .sec-gallery{min-height:280px;}
+  #skills-section,#contact-section{padding:80px 24px;}
+  .page-hero{padding:56px 24px 52px;}
+  .page-body{padding:48px 24px 72px;}
+  .role-list li{flex-direction:column;gap:4px;}
+  .role-list li strong{width:auto;}
+  .hw-content{padding:48px 24px 72px;}
+  .hw-page-hero{padding:52px 24px 48px;}
+}
+@media(max-width:680px){
+  .gnb{display:none;}
+}
+</style>
 </head>
 <body>
 
-<header>
-    <h1>유기현 (Yoo Gi-hyeon)</h1>
-    <p class="title-sub">한라대학교 컴퓨터공학과 졸업 예정</p>
-    <div class="contact-info">
-        <span>📧 kanga100008@gmail.com</span> | <span>📱 010-4993-8449</span>
-    </div>
+<!-- ======= HEADER ======= -->
+<header id="header">
+  <div class="header-inner">
+    <div class="logo" onclick="goTo('home')">유기현<span>.</span></div>
+    <ul class="gnb">
+      <li><a onclick="goTo('about')">소개</a></li>
+      <li><a onclick="goTo('proj1')">클로토의 실타래</a></li>
+      <li><a onclick="goTo('proj2')">DB 설계</a></li>
+      <li><a onclick="goTo('proj3')">모바일 개발</a></li>
+      <li><a onclick="goTo('proj4')">임베디드</a></li>
+      <li><a onclick="goTo('hw')">웹 과제</a></li>
+      <li><a onclick="goTo('home','skills-section')">기술 스택</a></li>
+      <li><a onclick="goTo('home','contact-section')">Contact</a></li>
+    </ul>
+  </div>
 </header>
 
-<section>
-    <h2>About Me</h2>
-    <p>데이터의 흐름을 설계하고 사용자 중심의 인터페이스를 구현하는 것에 즐거움을 느낍니다. <strong>PostgreSQL</strong>을 활용한 체계적인 DB 설계와 <strong>Next.js</strong> 기반의 고성능 프론트엔드 개발 역량을 갖추고 있으며, 임베디드(Arduino)부터 모바일(Kotlin)까지 폭넓은 기술 스택을 경험하며 문제 해결 능력을 키워왔습니다.</p>
-</section>
+<!-- ============================================================ -->
+<!-- PAGE: HOME -->
+<!-- ============================================================ -->
+<div class="page active" id="page-home">
 
-<section>
-    <h2>Technical Skills</h2>
-    <div class="skill-grid">
-        <div class="skill-card">
-            <span class="skill-name">Web & Mobile</span>
-            <small>Next.js, Kotlin, Java</small>
-        </div>
-        <div class="skill-card">
-            <span class="skill-name">System & Logic</span>
-            <small>Python, C, C++</small>
-        </div>
-        <div class="skill-card">
-            <span class="skill-name">Database</span>
-            <small>PostgreSQL</small>
-        </div>
-        <div class="skill-card">
-            <span class="skill-name">Hardware</span>
-            <small>Arduino (Embedded C)</small>
-        </div>
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Portfolio · 2026</span>
+      <h1>개발의 <em>모든 것</em></h1>
+      <p class="hero-sub">
+        데이터를 설계하고, 경험을 만드는 개발자<br>
+        유기현 · 한라대학교 컴퓨터공학과
+      </p>
+      <div class="hero-actions">
+        <button class="hero-btn primary" onclick="goTo('about')">소개 보기</button>
+        <button class="hero-btn" onclick="goTo('home','contact-section')">연락하기</button>
+      </div>
     </div>
-</section>
-
-<section>
-    <h2>Capstone Design (졸업 작품)</h2>
-    <div class="project-box">
-        <h3>🔮 클로토의 실타래 (Clotho's Thread)</h3>
-        <p>AI 기술을 접목하여 개인화된 운세 해석을 제공하는 지능형 타로 카드 서비스입니다.</p>
-        <div style="margin-bottom: 15px;">
-            <span class="tech-tag">Next.js</span>
-            <span class="tech-tag">PostgreSQL</span>
-            <span class="tech-tag">OpenAI API</span>
-            <span class="tech-tag">Vercel</span>
-            <span class="tech-tag">Tailwind CSS</span>
-        </div>
-        <ul style="margin-top: 15px; font-size: 0.95em; list-style-type: '✔ '; padding-left: 20px;">
-            <li><strong>주요 역할</strong>: 프론트엔드 아키텍처 설계 및 데이터베이스 스키마 최적화</li>
-            <li><strong>DB 설계</strong>: PostgreSQL을 이용한 사용자 상담 이력 및 타로 카드 메타데이터 관리</li>
-            <li><strong>UI/UX</strong>: Next.js를 활용한 반응형 웹 인터페이스 구축 및 애니메이션 구현</li>
-            <li><strong>AI 연동</strong>: <code>LLM</code> 모델을 활용한 타로 스프레드 해석 로직 구현 지원</li>
-        </ul>
+    <div class="scroll-down" onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">
+      SCROLL<span class="arr"></span>
     </div>
-</section>
+  </section>
 
-<footer>
-    <p>&copy; 2026 Yoo Gi-hyeon | Halla University</p>
-    <p>Department of Computer Science and Engineering</p>
-</footer>
+  <!-- ABOUT -->
+  <section id="about-section">
+    <div class="about-left">
+      <p class="sec-num">About Me</p>
+      <h2 class="sec-title">사용자 중심,<br>성과 중심,<br>데이터 중심</h2>
+      <p class="about-left sec-desc" style="background:transparent;width:100%;padding:0;color:#888;">
+        데이터의 흐름을 설계하고 사용자 중심의<br>
+        인터페이스를 구현하는 것에 즐거움을 느낍니다.<br>
+        임베디드부터 모바일, 웹까지 폭넓은 스택으로<br>
+        문제를 해결해 왔습니다.
+      </p>
+      <button class="more-btn" onclick="goTo('about')">More</button>
+    </div>
+    <div class="about-right">
+      <div class="about-card"><div class="about-icon">🎓</div><h3>한라대학교</h3><p>컴퓨터공학과<br>졸업 예정 · 2026</p></div>
+      <div class="about-card"><div class="about-icon">🌐</div><h3>Web · Frontend</h3><p>Next.js 기반<br>고성능 프론트엔드</p></div>
+      <div class="about-card"><div class="about-icon">🗄️</div><h3>Database</h3><p>PostgreSQL<br>스키마 설계 · 최적화</p></div>
+      <div class="about-card"><div class="about-icon">🔧</div><h3>Embedded</h3><p>Arduino 기반<br>하드웨어 제어</p></div>
+    </div>
+  </section>
 
+  <!-- PROJECT 01 -->
+  <section class="proj-section">
+    <div class="sec-text">
+      <p class="sec-num">Project 01</p>
+      <h2 class="sec-title">클로토의 실타래<br><small style="font-size:0.65em;font-weight:400;color:#aaa;">(졸업 작품)</small></h2>
+      <p class="sec-desc">AI 기술을 접목하여 개인화된 운세 해석을 제공하는 지능형 타로 카드 서비스입니다. 사용자 질문과 카드 조합을 LLM이 맥락적으로 해석합니다.</p>
+      <div class="badges">
+        <span class="badge">Next.js</span><span class="badge">PostgreSQL</span><span class="badge">OpenAI API</span><span class="badge">Vercel</span><span class="badge">Tailwind CSS</span>
+      </div>
+      <button class="more-btn" onclick="goTo('proj1')">More</button>
+    </div>
+    <div class="sec-gallery"><div class="slide-wrap" id="sw1"></div></div>
+  </section>
+
+  <!-- PROJECT 02 -->
+  <section class="proj-section reverse dark">
+    <div class="sec-text">
+      <p class="sec-num">Project 02</p>
+      <h2 class="sec-title">PostgreSQL<br>DB 설계</h2>
+      <p class="sec-desc">서비스 전반의 데이터를 체계적으로 모델링하고 성능을 최적화한 DB 설계입니다. ERD 설계부터 인덱스 튜닝까지 직접 수행했습니다.</p>
+      <div class="badges">
+        <span class="badge">PostgreSQL</span><span class="badge">ERD 설계</span><span class="badge">정규화 3NF</span><span class="badge">인덱스 최적화</span><span class="badge">JSONB</span>
+      </div>
+      <button class="more-btn" onclick="goTo('proj2')">More</button>
+    </div>
+    <div class="sec-gallery"><div class="slide-wrap" id="sw2"></div></div>
+  </section>
+
+  <!-- PROJECT 03 -->
+  <section class="proj-section">
+    <div class="sec-text">
+      <p class="sec-num">Project 03</p>
+      <h2 class="sec-title">Android<br>모바일 개발</h2>
+      <p class="sec-desc">Kotlin을 주력으로 Android 네이티브 앱을 개발한 경험입니다. 비동기 처리와 API 연동을 중심으로 안정적인 앱을 구현했습니다.</p>
+      <div class="badges">
+        <span class="badge">Kotlin</span><span class="badge">Android</span><span class="badge">Coroutines</span><span class="badge">REST API</span><span class="badge">Java</span>
+      </div>
+      <button class="more-btn" onclick="goTo('proj3')">More</button>
+    </div>
+    <div class="sec-gallery"><div class="slide-wrap" id="sw3"></div></div>
+  </section>
+
+  <!-- PROJECT 04 -->
+  <section class="proj-section reverse dark">
+    <div class="sec-text">
+      <p class="sec-num">Project 04</p>
+      <h2 class="sec-title">Arduino<br>임베디드 시스템</h2>
+      <p class="sec-desc">Arduino와 Embedded C를 활용하여 센서 데이터 수집 및 하드웨어 제어 시스템을 개발한 경험입니다.</p>
+      <div class="badges">
+        <span class="badge">Arduino</span><span class="badge">Embedded C</span><span class="badge">C / C++</span><span class="badge">센서 제어</span><span class="badge">시리얼 통신</span>
+      </div>
+      <button class="more-btn" onclick="goTo('proj4')">More</button>
+    </div>
+    <div class="sec-gallery"><div class="slide-wrap" id="sw4"></div></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills-section">
+    <div class="skills-wrap">
+      <p class="section-eyebrow">Technical Skills</p>
+      <h2 class="section-heading">보유 기술 스택</h2>
+      <p class="section-lead">임베디드부터 웹, 모바일까지 폭넓은 기술 경험을 보유하고 있습니다.</p>
+      <div class="skills-grid">
+        <div class="skill-card"><div class="skill-icon">⚡</div><h3>Next.js</h3><p>SSR·SSG 기반 고성능 웹 앱. Tailwind CSS, API Routes, 반응형 UI 구현</p></div>
+        <div class="skill-card"><div class="skill-icon">🗄️</div><h3>PostgreSQL</h3><p>관계형 DB 설계, 인덱스 최적화, 복잡한 JOIN 및 JSONB 활용</p></div>
+        <div class="skill-card"><div class="skill-icon">📱</div><h3>Kotlin / Java</h3><p>Android 네이티브 개발, Coroutines, REST API 연동 및 생명주기 관리</p></div>
+        <div class="skill-card"><div class="skill-icon">🔧</div><h3>Arduino</h3><p>Embedded C 기반 센서 제어, 시리얼 통신, PWM 모터 제어</p></div>
+        <div class="skill-card"><div class="skill-icon">🐍</div><h3>Python · C · C++</h3><p>알고리즘, 시스템 프로그래밍, 데이터 처리 스크립트 작성</p></div>
+        <div class="skill-card"><div class="skill-icon">🤖</div><h3>OpenAI API</h3><p>LLM 프롬프트 엔지니어링, AI 기능 서비스 연동 및 응답 파싱</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact-section">
+    <p class="section-eyebrow">Contact</p>
+    <h2 class="section-heading">함께 만들어 갑시다</h2>
+    <p class="section-lead">새로운 기회, 프로젝트 협업, 또는 단순한 인사도 환영합니다.</p>
+    <div class="contact-row">
+      <div class="contact-item">📧 kanga100008@gmail.com</div>
+      <div class="contact-item">📱 010-4993-8449</div>
+      <div class="contact-item">🎓 한라대학교 컴퓨터공학과</div>
+    </div>
+    <a href="mailto:kanga100008@gmail.com" class="cta-btn">이메일 보내기</a>
+  </section>
+
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ABOUT -->
+<!-- ============================================================ -->
+<div class="page" id="page-about">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">About Me</span>
+      <h1>유기현<br>Yoo Gi-hyeon</h1>
+      <p>데이터의 흐름을 설계하고 사용자 중심의 인터페이스를 구현하는 것에 즐거움을 느끼는 개발자입니다.</p>
+      <div class="badges">
+        <span class="badge">Next.js</span><span class="badge">PostgreSQL</span><span class="badge">Kotlin</span><span class="badge">Arduino</span><span class="badge">Python</span><span class="badge">C / C++</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Introduction</p>
+      <h2>개발자 소개</h2>
+      <p>한라대학교 컴퓨터공학과 졸업 예정(2026)으로, 데이터의 흐름을 설계하고 사용자 중심의 인터페이스를 구현하는 것에 즐거움을 느끼는 개발자입니다.</p>
+      <p>PostgreSQL을 활용한 체계적인 DB 설계와 Next.js 기반의 고성능 프론트엔드 개발 역량을 갖추고 있으며, Arduino(임베디드)부터 Kotlin(모바일)까지 폭넓은 기술 스택을 경험하며 문제 해결 능력을 키워왔습니다.</p>
+      <p>단순히 동작하는 코드가 아닌, 구조적으로 탄탄하고 유지보수가 쉬운 소프트웨어를 만드는 것을 목표로 합니다.</p>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Education</p>
+      <h2>학력</h2>
+      <ul class="role-list">
+        <li><strong>한라대학교</strong><span>컴퓨터공학과 · 졸업 예정 2026<br>데이터베이스, 운영체제, 컴퓨터 네트워크, 임베디드 시스템 등 이수</span></li>
+      </ul>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Skills</p>
+      <h2>기술 역량</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">⚡</div><h3>Frontend</h3><p>Next.js, React, Tailwind CSS 기반 반응형 웹 개발</p></div>
+        <div class="feature-card"><div class="feature-icon">🗄️</div><h3>Database</h3><p>PostgreSQL 스키마 설계, 정규화, 인덱스 최적화</p></div>
+        <div class="feature-card"><div class="feature-icon">📱</div><h3>Mobile</h3><p>Kotlin · Java Android 네이티브 앱 개발</p></div>
+        <div class="feature-card"><div class="feature-icon">🔧</div><h3>Embedded</h3><p>Arduino, Embedded C, 센서 및 모터 제어</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Integration</h3><p>OpenAI API 연동, 프롬프트 엔지니어링</p></div>
+        <div class="feature-card"><div class="feature-icon">🐍</div><h3>Languages</h3><p>Python, C, C++, JavaScript / TypeScript</p></div>
+      </div>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Contact</p>
+      <h2>연락처</h2>
+      <ul class="role-list">
+        <li><strong>이메일</strong><span>kanga100008@gmail.com</span></li>
+        <li><strong>전화</strong><span>010-4993-8449</span></li>
+        <li><strong>학교</strong><span>한라대학교 컴퓨터공학과</span></li>
+      </ul>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROJECT 1 -->
+<!-- ============================================================ -->
+<div class="page" id="page-proj1">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">Project 01 · Capstone Design</span>
+      <h1>🔮 클로토의 실타래</h1>
+      <p>AI 기술을 접목하여 개인화된 운세 해석을 제공하는 지능형 타로 카드 서비스. 사용자의 질문과 선택된 카드 조합을 LLM이 맥락적으로 해석해 맞춤형 리딩을 제공합니다.</p>
+      <div class="badges">
+        <span class="badge">Next.js</span><span class="badge">PostgreSQL</span><span class="badge">OpenAI API</span><span class="badge">Vercel</span><span class="badge">Tailwind CSS</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Overview</p>
+      <h2>프로젝트 개요</h2>
+      <p>클로토의 실타래는 졸업 작품(Capstone Design)으로 개발한 AI 기반 타로 카드 서비스입니다. 단순한 카드 뽑기를 넘어, 사용자의 질문과 선택된 카드 조합을 LLM이 맥락적으로 해석해 맞춤형 리딩을 제공합니다.</p>
+      <p>Next.js 기반의 반응형 웹 인터페이스에 PostgreSQL로 설계한 데이터베이스를 연결하고, OpenAI API로 AI 해석 기능을 구현했습니다. Vercel을 통한 CI/CD 배포까지 전 과정을 경험했습니다.</p>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Role</p>
+      <h2>담당 역할 및 구현 내용</h2>
+      <ul class="role-list">
+        <li><strong>프론트엔드</strong><span>Next.js 기반 SSR 웹 앱 설계 및 구현. Tailwind CSS로 반응형 UI 구축, 카드 플립 CSS 애니메이션 구현</span></li>
+        <li><strong>DB 설계</strong><span>PostgreSQL을 이용한 사용자 상담 이력 및 타로 카드 메타데이터 관리. 정규화(3NF) 설계</span></li>
+        <li><strong>AI 연동</strong><span>OpenAI API를 활용한 타로 스프레드 해석 프롬프트 설계 및 응답 파싱. 카드 조합과 질문을 결합한 맥락적 해석 생성</span></li>
+        <li><strong>배포 · 운영</strong><span>Vercel CI/CD 파이프라인 구성. GitHub 연동 자동 빌드·배포 및 환경변수 관리</span></li>
+      </ul>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Features</p>
+      <h2>주요 기능</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">🃏</div><h3>카드 드로우 UI</h3><p>직관적인 카드 선택 인터페이스와 부드러운 플립 애니메이션</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI 타로 해석</h3><p>OpenAI GPT 기반 개인화된 맥락 해석 및 카드 조합 분석</p></div>
+        <div class="feature-card"><div class="feature-icon">📜</div><h3>상담 이력 관리</h3><p>PostgreSQL 기반 사용자별 상담 기록 저장 및 조회</p></div>
+        <div class="feature-card"><div class="feature-icon">📱</div><h3>반응형 웹</h3><p>모바일부터 데스크탑까지 최적화된 반응형 인터페이스</p></div>
+      </div>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Tech Stack</p>
+      <h2>기술 스택 상세</h2>
+      <ul class="role-list">
+        <li><strong>Frontend</strong><span>Next.js 14 (App Router), React, Tailwind CSS, TypeScript</span></li>
+        <li><strong>Backend</strong><span>Next.js API Routes, PostgreSQL, Prisma ORM</span></li>
+        <li><strong>AI</strong><span>OpenAI GPT-4o API, 프롬프트 엔지니어링</span></li>
+        <li><strong>인프라</strong><span>Vercel (배포 · CDN), GitHub Actions (CI/CD)</span></li>
+      </ul>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROJECT 2 -->
+<!-- ============================================================ -->
+<div class="page" id="page-proj2">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">Project 02 · Database</span>
+      <h1>🗄️ PostgreSQL<br>DB 설계</h1>
+      <p>서비스 전반의 데이터를 체계적으로 모델링하고 성능을 최적화한 데이터베이스 설계. ERD 설계부터 정규화, 인덱스 튜닝까지 전 과정을 직접 수행했습니다.</p>
+      <div class="badges">
+        <span class="badge">PostgreSQL</span><span class="badge">ERD 설계</span><span class="badge">정규화 3NF</span><span class="badge">인덱스 최적화</span><span class="badge">JSONB</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Overview</p>
+      <h2>프로젝트 개요</h2>
+      <p>클로토의 실타래 서비스의 데이터 레이어 전반을 설계했습니다. 사용자 인증, 상담 세션, 타로 카드 메타데이터, 결과 이력 등 핵심 엔티티를 ERD로 모델링하고 PostgreSQL로 구현했습니다.</p>
+      <p>단순한 테이블 생성을 넘어 데이터의 흐름과 서비스 요구사항을 분석하여 확장 가능하고 성능이 뛰어난 DB 구조를 설계하는 데 초점을 맞췄습니다.</p>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Design</p>
+      <h2>설계 내용</h2>
+      <ul class="role-list">
+        <li><strong>테이블 설계</strong><span>users, sessions, cards, readings, spreads 등 핵심 엔티티를 3NF로 정규화하여 데이터 중복과 갱신 이상 최소화</span></li>
+        <li><strong>인덱스 최적화</strong><span>조회 빈도가 높은 컬럼에 복합 인덱스 적용. EXPLAIN ANALYZE를 활용한 실행 계획 분석으로 쿼리 성능 개선</span></li>
+        <li><strong>JSONB 활용</strong><span>타로 카드 메타데이터(의미, 역방향 해석, 키워드)를 JSONB로 유연하게 저장하여 스키마 변경 없이 속성 확장 가능</span></li>
+        <li><strong>트랜잭션 설계</strong><span>상담 생성부터 카드 선택, AI 해석 결과 저장까지 전체 플로우를 하나의 트랜잭션으로 묶어 원자성 보장</span></li>
+      </ul>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Features</p>
+      <h2>주요 구현 포인트</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>ERD 설계</h3><p>논리적·물리적 ERD 단계별 설계, 엔티티 관계 명확화</p></div>
+        <div class="feature-card"><div class="feature-icon">📐</div><h3>3NF 정규화</h3><p>완전 함수 종속, 이행 종속 제거로 데이터 무결성 확보</p></div>
+        <div class="feature-card"><div class="feature-icon">🔍</div><h3>인덱스 튜닝</h3><p>복합 인덱스 전략 수립 및 쿼리 실행 계획 분석</p></div>
+        <div class="feature-card"><div class="feature-icon">📦</div><h3>JSONB 설계</h3><p>반구조화 데이터 효율적 저장 및 GIN 인덱스 적용</p></div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROJECT 3 -->
+<!-- ============================================================ -->
+<div class="page" id="page-proj3">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">Project 03 · Mobile</span>
+      <h1>📱 Android<br>모바일 개발</h1>
+      <p>Kotlin을 주력으로 Android 네이티브 앱을 개발한 경험입니다. 비동기 처리와 API 연동을 중심으로 안정적인 앱을 구현했습니다.</p>
+      <div class="badges">
+        <span class="badge">Kotlin</span><span class="badge">Android</span><span class="badge">Coroutines</span><span class="badge">REST API</span><span class="badge">Java</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Overview</p>
+      <h2>프로젝트 개요</h2>
+      <p>Kotlin을 주력으로 Android 네이티브 앱 개발 경험을 쌓았습니다. 안드로이드 생명주기(Lifecycle) 이해를 바탕으로 안정적인 UI와 비동기 네트워크 통신을 구현했습니다.</p>
+      <p>Java로 작성된 기존 코드베이스를 분석하고 Kotlin으로 마이그레이션하는 과정을 통해 두 언어 모두에 대한 이해를 높였습니다.</p>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Implementation</p>
+      <h2>구현 내용</h2>
+      <ul class="role-list">
+        <li><strong>UI 구성</strong><span>XML 레이아웃과 Jetpack 컴포넌트(RecyclerView, ViewModel, LiveData)를 활용한 화면 설계 및 데이터 바인딩</span></li>
+        <li><strong>비동기 처리</strong><span>Kotlin Coroutines를 활용한 API 호출 및 백그라운드 작업 처리. Main/IO Dispatcher 분리로 UI 스레드 블로킹 방지</span></li>
+        <li><strong>API 연동</strong><span>Retrofit2 + OkHttp를 활용한 REST API 통신. 요청/응답 인터셉터 구현 및 에러 처리 로직 설계</span></li>
+        <li><strong>로컬 캐싱</strong><span>Room Database를 활용한 로컬 데이터 캐싱으로 오프라인 환경 지원 및 네트워크 요청 최소화</span></li>
+        <li><strong>Java → Kotlin</strong><span>기존 Java 코드베이스 분석 및 Kotlin 마이그레이션. null-safety, data class, extension function 등 Kotlin 특성 적극 활용</span></li>
+      </ul>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Features</p>
+      <h2>주요 구현 포인트</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">🏗️</div><h3>MVVM 아키텍처</h3><p>ViewModel + LiveData 기반 MVVM 패턴으로 UI와 비즈니스 로직 분리</p></div>
+        <div class="feature-card"><div class="feature-icon">🔄</div><h3>비동기 처리</h3><p>Coroutines로 깔끔한 비동기 코드 작성, 생명주기 연동</p></div>
+        <div class="feature-card"><div class="feature-icon">🌐</div><h3>네트워크 통신</h3><p>Retrofit2 기반 REST API 연동 및 에러 핸들링</p></div>
+        <div class="feature-card"><div class="feature-icon">💾</div><h3>로컬 저장소</h3><p>Room DB를 활용한 로컬 캐싱과 오프라인 지원</p></div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROJECT 4 -->
+<!-- ============================================================ -->
+<div class="page" id="page-proj4">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">Project 04 · Embedded</span>
+      <h1>🔧 Arduino<br>임베디드 시스템</h1>
+      <p>Arduino와 Embedded C를 활용하여 센서 데이터 수집 및 하드웨어 제어 시스템을 개발한 경험입니다. 저수준 프로그래밍으로 하드웨어와 소프트웨어가 만나는 지점을 탐구했습니다.</p>
+      <div class="badges">
+        <span class="badge">Arduino</span><span class="badge">Embedded C</span><span class="badge">C / C++</span><span class="badge">센서 제어</span><span class="badge">시리얼 통신</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Overview</p>
+      <h2>프로젝트 개요</h2>
+      <p>Arduino를 활용한 임베디드 시스템 개발로 하드웨어와 소프트웨어가 만나는 지점을 경험했습니다. 메모리 제약 환경에서 효율적인 코드를 작성하는 법을 배우며 전반적인 개발 사고를 넓혔습니다.</p>
+      <p>다양한 센서를 연동하고 실시간으로 데이터를 수집·처리하는 시스템을 설계했습니다. 브레드보드 프로토타입 제작부터 시리얼 통신을 통한 PC 연동까지 직접 구현했습니다.</p>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Implementation</p>
+      <h2>구현 내용</h2>
+      <ul class="role-list">
+        <li><strong>센서 연동</strong><span>온습도(DHT22), 초음파(HC-SR04), 적외선(PIR) 등 다양한 센서 데이터 수집 및 실시간 처리. I2C·SPI 프로토콜 활용</span></li>
+        <li><strong>시리얼 통신</strong><span>Arduino ↔ PC 간 UART 시리얼 통신으로 실시간 센서 데이터 모니터링. 데이터 파싱 프로토콜 직접 설계</span></li>
+        <li><strong>모터 제어</strong><span>PWM(Pulse Width Modulation) 신호를 이용한 서보·DC 모터 정밀 제어. 듀티 사이클 조정으로 속도 및 각도 제어</span></li>
+        <li><strong>LED 매트릭스</strong><span>8×8 LED 매트릭스에 패턴 출력 구현. 멀티플렉싱 방식으로 적은 핀으로 다수 LED 제어</span></li>
+        <li><strong>메모리 최적화</strong><span>제한된 SRAM(2KB) 환경에서 효율적인 변수 관리. PROGMEM을 활용한 플래시 메모리 데이터 저장</span></li>
+      </ul>
+    </div>
+    <div class="page-sec">
+      <p class="page-sec-label">Features</p>
+      <h2>주요 구현 포인트</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">🔌</div><h3>다중 센서 연동</h3><p>I2C·SPI·UART 프로토콜로 다양한 센서 동시 운용</p></div>
+        <div class="feature-card"><div class="feature-icon">⚙️</div><h3>PWM 모터 제어</h3><p>정밀한 듀티 사이클 제어로 서보·DC 모터 정확한 제어</p></div>
+        <div class="feature-card"><div class="feature-icon">📡</div><h3>실시간 통신</h3><p>시리얼 통신 프로토콜 설계로 PC와 실시간 데이터 교환</p></div>
+        <div class="feature-card"><div class="feature-icon">🧮</div><h3>저메모리 최적화</h3><p>SRAM 2KB 제약에서 안정적으로 동작하는 효율적인 코드</p></div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 웹 과제 (목록) -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <span class="page-eyebrow">Web Assignments</span>
+      <h1>📚 웹 과제</h1>
+      <p>수업 과제로 제작한 다섯 가지 웹 구현물입니다. 각 항목을 클릭하면 직접 실행해볼 수 있습니다.</p>
+      <div class="badges">
+        <span class="badge">HTML</span><span class="badge">CSS3</span><span class="badge">JavaScript</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <button class="back-btn" onclick="goTo('home')">메인으로</button>
+    <div class="page-sec">
+      <p class="page-sec-label">Assignment List</p>
+      <h2>과제 목록</h2>
+    </div>
+    <div class="hw-grid">
+      <div class="hw-card" onclick="goTo('hw-calc')">
+        <div class="hw-card-icon">🧮</div>
+        <h3>계산기</h3>
+        <p>사칙연산을 지원하는 웹 계산기. 숫자 입력, 연산자 선택, 결과 계산 구현.</p>
+        <div class="hw-arrow">바로가기 →</div>
+      </div>
+      <div class="hw-card" onclick="goTo('hw-cal')">
+        <div class="hw-card-icon">📅</div>
+        <h3>달력</h3>
+        <p>월별 달력 탐색 및 날짜 선택 기능. 오늘 날짜 하이라이트 포함.</p>
+        <div class="hw-arrow">바로가기 →</div>
+      </div>
+      <div class="hw-card" onclick="goTo('hw-gamble')">
+        <div class="hw-card-icon">🎰</div>
+        <h3>겜블링</h3>
+        <p>숫자 박스를 클릭해 난수를 생성하고 세 숫자가 일치하면 승리하는 게임.</p>
+        <div class="hw-arrow">바로가기 →</div>
+      </div>
+      <div class="hw-card" onclick="goTo('hw-dynamic')">
+        <div class="hw-card-icon">✨</div>
+        <h3>동적 변화</h3>
+        <p>CSS3 Transition·Transform·Animation을 활용한 세 가지 동적 효과 예시.</p>
+        <div class="hw-arrow">바로가기 →</div>
+      </div>
+      <div class="hw-card" onclick="goTo('hw-survey')">
+        <div class="hw-card-icon">📋</div>
+        <h3>설문지</h3>
+        <p>소프트웨어 기술 선호도 설문. 라디오, 체크박스, 셀렉트, 텍스트에어리어 포함.</p>
+        <div class="hw-arrow">바로가기 →</div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 계산기 -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw-calc">
+  <div class="hw-page-hero">
+    <div class="hw-page-hero-inner">
+      <span class="page-eyebrow">Web Assignment 01</span>
+      <h1>🧮 계산기</h1>
+      <p>사칙연산(+, -, ×, ÷)을 지원하는 웹 계산기입니다.</p>
+    </div>
+  </div>
+  <div class="hw-content">
+    <button class="hw-back-btn" onclick="goTo('hw')">목록으로</button>
+    <div class="calc-wrap">
+      <div class="calculator">
+        <input type="text" id="calc-display" disabled>
+        <div class="calc-buttons">
+          <button onclick="calcClear()">C</button>
+          <button onclick="calcDel()">←</button>
+          <button onclick="calcAppend('/')" class="calc-op">÷</button>
+          <button onclick="calcAppend('*')" class="calc-op">×</button>
+          <button onclick="calcAppend('7')">7</button>
+          <button onclick="calcAppend('8')">8</button>
+          <button onclick="calcAppend('9')">9</button>
+          <button onclick="calcAppend('-')" class="calc-op">-</button>
+          <button onclick="calcAppend('4')">4</button>
+          <button onclick="calcAppend('5')">5</button>
+          <button onclick="calcAppend('6')">6</button>
+          <button onclick="calcAppend('+')" class="calc-op">+</button>
+          <button onclick="calcAppend('1')">1</button>
+          <button onclick="calcAppend('2')">2</button>
+          <button onclick="calcAppend('3')">3</button>
+          <button onclick="calcCalc()" class="calc-eq">=</button>
+          <button onclick="calcAppend('0')" class="calc-zero">0</button>
+          <button onclick="calcAppend('.')">.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 달력 -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw-cal">
+  <div class="hw-page-hero">
+    <div class="hw-page-hero-inner">
+      <span class="page-eyebrow">Web Assignment 02</span>
+      <h1>📅 달력</h1>
+      <p>월별 달력을 탐색하고 날짜를 클릭할 수 있습니다. 오늘 날짜는 파란색으로 표시됩니다.</p>
+    </div>
+  </div>
+  <div class="hw-content">
+    <button class="hw-back-btn" onclick="goTo('hw')">목록으로</button>
+    <div class="calendar-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="calMove(-1)">&#8249; 이전</button>
+        <h2 id="cal-title"></h2>
+        <button class="cal-nav" onclick="calMove(1)">다음 &#8250;</button>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-day-label">일</div>
+        <div class="cal-day-label">월</div>
+        <div class="cal-day-label">화</div>
+        <div class="cal-day-label">수</div>
+        <div class="cal-day-label">목</div>
+        <div class="cal-day-label">금</div>
+        <div class="cal-day-label">토</div>
+      </div>
+      <div id="cal-body" class="cal-grid"></div>
+      <div class="cal-memo" id="cal-memo">날짜를 클릭하면 선택됩니다.</div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 겜블링 -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw-gamble">
+  <div class="hw-page-hero">
+    <div class="hw-page-hero-inner">
+      <span class="page-eyebrow">Web Assignment 03</span>
+      <h1>🎰 겜블링 게임</h1>
+      <p>각 숫자 박스를 클릭해 0~2 사이의 난수를 생성하세요. 세 숫자가 모두 같으면 승리!</p>
+    </div>
+  </div>
+  <div class="hw-content">
+    <button class="hw-back-btn" onclick="goTo('hw')">목록으로</button>
+    <div class="gamble-wrap">
+      <p class="gamble-desc">각 숫자를 클릭하면 0에서 2 사이의 난수로 바뀝니다.<br>세 숫자가 모두 같은 수가 나오면 승리합니다.</p>
+      <div class="num-container">
+        <span class="num" id="gn0" onclick="gambleClick(0)">0</span>
+        <span class="num" id="gn1" onclick="gambleClick(1)">0</span>
+        <span class="num" id="gn2" onclick="gambleClick(2)">0</span>
+      </div>
+      <div id="gamble-msg" onclick="gambleReset()"></div>
+      <p class="gamble-reset-hint" id="gamble-hint">결과 메시지를 클릭하면 다시 시작합니다.</p>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 동적 변화 -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw-dynamic">
+  <div class="hw-page-hero">
+    <div class="hw-page-hero-inner">
+      <span class="page-eyebrow">Web Assignment 04</span>
+      <h1>✨ CSS3 동적 변화</h1>
+      <p>Transition, Transform, Animation(@keyframes)을 활용한 세 가지 동적 효과 예시입니다.</p>
+    </div>
+  </div>
+  <div class="hw-content">
+    <button class="hw-back-btn" onclick="goTo('hw')">목록으로</button>
+    <div class="dynamic-wrap">
+      <div class="dynamic-item">
+        <h3>1. 마우스 오버 효과 (Transition + Transform)</h3>
+        <p>마우스를 올려보세요.</p>
+        <button class="hover-btn-demo">클릭하세요</button>
+      </div>
+      <div class="dynamic-item">
+        <h3>2. 로딩 스피너 (Animation + @keyframes)</h3>
+        <p>무한히 회전하는 로딩 애니메이션입니다.</p>
+        <div class="spinner"></div>
+      </div>
+      <div class="dynamic-item">
+        <h3>3. 복합 애니메이션 (모양, 색상, 회전 변화)</h3>
+        <p>여러 단계(0%, 50%, 100%)를 거쳐 부드럽게 변형됩니다.</p>
+        <div class="morph-box"></div>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: 설문지 -->
+<!-- ============================================================ -->
+<div class="page" id="page-hw-survey">
+  <div class="hw-page-hero">
+    <div class="hw-page-hero-inner">
+      <span class="page-eyebrow">Web Assignment 05</span>
+      <h1>📋 설문지</h1>
+      <p>소프트웨어 기술 선호에 관한 설문입니다. 작성 후 제출 버튼을 눌러보세요.</p>
+    </div>
+  </div>
+  <div class="hw-content">
+    <button class="hw-back-btn" onclick="goTo('hw')">목록으로</button>
+    <div class="survey-wrap">
+      <h2>설문지</h2>
+      <p class="survey-intro">소프트웨어 기술에 대한 의견을 듣습니다. 많은 참여 부탁드립니다.</p>
+      <hr>
+      <div class="survey-form-box">
+        <div class="survey-row">
+          <span class="survey-title">학년</span>
+          <label><input type="radio" name="grade" value="1" checked> 1학년</label>
+          <label><input type="radio" name="grade" value="2"> 2학년</label>
+          <label><input type="radio" name="grade" value="3"> 3학년</label>
+          <label><input type="radio" name="grade" value="4"> 4학년</label>
+        </div>
+        <div class="survey-row">
+          <span class="survey-title">성별</span>
+          <label><input type="radio" name="gender" value="m"> 남</label>
+          <label><input type="radio" name="gender" value="f" checked> 여</label>
+        </div>
+        <div class="survey-row">
+          <span class="survey-title">관심 분야</span>
+          <select name="interest" id="survey-interest">
+            <option value="mobile">모바일 소프트웨어</option>
+            <option value="web">웹 프로그래밍</option>
+            <option value="ai">인공지능</option>
+          </select>
+        </div>
+        <div class="survey-row">
+          <span class="survey-title">진로(다중 선택)</span>
+          <label><input type="checkbox" name="career" value="dev" checked> 개발</label>
+          <label><input type="checkbox" name="career" value="plan"> 기획</label>
+          <label><input type="checkbox" name="career" value="sales"> 영업</label>
+          <label><input type="checkbox" name="career" value="startup"> 창업</label>
+        </div>
+        <div class="survey-row">
+          <span class="survey-title survey-msg-title">남기고 싶은 말</span>
+          <textarea id="survey-msg" rows="5" cols="35" placeholder="글을 남겨주세요"></textarea>
+        </div>
+      </div>
+      <div class="survey-submit-wrap">
+        <button class="survey-submit" onclick="surveySubmit()">설문 제출하기</button>
+      </div>
+      <div id="survey-result"></div>
+      <div style="margin-top:20px;">
+        <span class="survey-footer">Copyright 2026 by Kitae</span>
+      </div>
+    </div>
+  </div>
+  <footer><p>&copy; 2026 유기현 (Yoo Gi-hyeon) &nbsp;|&nbsp; Halla University, Dept. of Computer Science &amp; Engineering</p></footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS -->
+<!-- ============================================================ -->
+<script>
+/* ===== 슬라이더 데이터 ===== */
+const slides = {
+  sw1:[
+    {e:'🔮',t:'타로 카드 UI',d:'카드 플립 애니메이션'},
+    {e:'🌐',t:'반응형 레이아웃',d:'모바일 퍼스트 디자인'},
+    {e:'🤖',t:'AI 해석 엔진',d:'OpenAI API 맥락 해석'},
+    {e:'🗄️',t:'DB 스키마',d:'상담 이력 PostgreSQL'},
+    {e:'🚀',t:'Vercel 배포',d:'CI/CD 자동 배포'},
+    {e:'🎨',t:'Tailwind CSS',d:'유틸리티 기반 UI'},
+  ],
+  sw2:[
+    {e:'📊',t:'ERD 설계',d:'엔티티-관계 모델링'},
+    {e:'🔍',t:'인덱스 최적화',d:'복합 인덱스 적용'},
+    {e:'📦',t:'JSONB 활용',d:'반구조화 데이터 저장'},
+    {e:'🔒',t:'트랜잭션',d:'원자성 보장 설계'},
+    {e:'📐',t:'정규화 3NF',d:'데이터 중복 최소화'},
+    {e:'⚡',t:'쿼리 튜닝',d:'실행 계획 분석'},
+  ],
+  sw3:[
+    {e:'📱',t:'Android UI',d:'Jetpack 컴포넌트'},
+    {e:'🔄',t:'Coroutines',d:'비동기 처리'},
+    {e:'🌐',t:'REST API',d:'네트워크 통신'},
+    {e:'💾',t:'로컬 캐싱',d:'오프라인 데이터 지원'},
+    {e:'☕',t:'Java → Kotlin',d:'마이그레이션 경험'},
+    {e:'🏗️',t:'MVVM 패턴',d:'아키텍처 설계'},
+  ],
+  sw4:[
+    {e:'🔌',t:'센서 연동',d:'온습도·초음파 센서'},
+    {e:'📡',t:'시리얼 통신',d:'실시간 데이터 송수신'},
+    {e:'⚙️',t:'모터 제어',d:'PWM 신호 제어'},
+    {e:'💡',t:'LED 매트릭스',d:'패턴 출력 구현'},
+    {e:'🧮',t:'Embedded C',d:'메모리 최적화 코드'},
+    {e:'🛠️',t:'회로 설계',d:'브레드보드 프로토타입'},
+  ]
+};
+
+function buildSliders(){
+  Object.entries(slides).forEach(([id,items])=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    const isDark = el.closest('.dark') !== null;
+    const thumbBg = isDark ? '#161616' : '#e8edf5';
+    const doubled = [...items,...items];
+    el.innerHTML = doubled.map(({e,t,d})=>`
+      <div class="slide-card">
+        <div class="slide-thumb" style="background:${thumbBg}">${e}</div>
+        <div class="slide-body"><h4>${t}</h4><p>${d}</p></div>
+      </div>
+    `).join('');
+  });
+}
+
+/* ===== 페이지 전환 ===== */
+const pageMap = {
+  'home':'page-home',
+  'about':'page-about',
+  'proj1':'page-proj1',
+  'proj2':'page-proj2',
+  'proj3':'page-proj3',
+  'proj4':'page-proj4',
+  'hw':'page-hw',
+  'hw-calc':'page-hw-calc',
+  'hw-cal':'page-hw-cal',
+  'hw-gamble':'page-hw-gamble',
+  'hw-dynamic':'page-hw-dynamic',
+  'hw-survey':'page-hw-survey',
+};
+
+const navMap = {
+  'about':0,'proj1':1,'proj2':2,'proj3':3,'proj4':4,'hw':5
+};
+
+function goTo(key, scrollTo){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageMap[key]).classList.add('active');
+  window.scrollTo(0,0);
+  document.querySelectorAll('.gnb li a').forEach(a => a.classList.remove('active'));
+  if(navMap[key] !== undefined){
+    document.querySelectorAll('.gnb li a')[navMap[key]].classList.add('active');
+  }
+  if(scrollTo){
+    setTimeout(()=>{
+      const el = document.getElementById(scrollTo);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }, 50);
+  }
+  // 달력 초기화
+  if(key === 'hw-cal') calRender();
+  // 겜블링 초기화
+  if(key === 'hw-gamble') gambleReset();
+}
+
+/* ===== 헤더 스크롤 효과 ===== */
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ===== 계산기 ===== */
+function calcAppend(v){ document.getElementById('calc-display').value += v; }
+function calcClear(){ document.getElementById('calc-display').value = ''; }
+function calcDel(){ const d = document.getElementById('calc-display'); d.value = d.value.slice(0,-1); }
+function calcCalc(){
+  const d = document.getElementById('calc-display');
+  try { d.value = eval(d.value); }
+  catch(e){ d.value = '오류'; setTimeout(calcClear, 1500); }
+}
+
+/* ===== 달력 ===== */
+let calYear, calMonth;
+(function(){
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+})();
+
+function calRender(){
+  const now = new Date();
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const lastDate = new Date(calYear, calMonth+1, 0).getDate();
+  document.getElementById('cal-title').textContent = calYear + '년 ' + (calMonth+1) + '월';
+  const body = document.getElementById('cal-body');
+  body.innerHTML = '';
+  for(let i=0;i<firstDay;i++){
+    const el = document.createElement('div');
+    el.className='cal-cell empty';
+    body.appendChild(el);
+  }
+  for(let d=1;d<=lastDate;d++){
+    const el = document.createElement('div');
+    const dow = (firstDay + d - 1) % 7;
+    let cls = 'cal-cell';
+    if(dow===0) cls += ' sunday';
+    if(dow===6) cls += ' saturday';
+    if(d===now.getDate() && calMonth===now.getMonth() && calYear===now.getFullYear()) cls += ' today';
+    el.className = cls;
+    el.textContent = d;
+    el.onclick = (function(day){
+      return function(){
+        document.querySelectorAll('.cal-cell.selected').forEach(c=>c.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('cal-memo').textContent =
+          calYear+'년 '+(calMonth+1)+'월 '+day+'일을 선택했습니다.';
+      };
+    })(d);
+    body.appendChild(el);
+  }
+}
+function calMove(dir){
+  calMonth += dir;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  calRender();
+  document.getElementById('cal-memo').textContent='날짜를 클릭하면 선택됩니다.';
+}
+
+/* ===== 겜블링 ===== */
+let gClicked = [false,false,false];
+let gOver = false;
+
+function gambleReset(){
+  if(!gOver && (gClicked[0]||gClicked[1]||gClicked[2])) return;
+  document.getElementById('gn0').textContent='0';
+  document.getElementById('gn1').textContent='0';
+  document.getElementById('gn2').textContent='0';
+  document.getElementById('gamble-msg').textContent='';
+  document.getElementById('gamble-hint').style.display='';
+  gClicked=[false,false,false];
+  gOver=false;
+}
+function gambleClick(idx){
+  if(gOver) return;
+  const n = Math.floor(Math.random()*3);
+  document.getElementById('gn'+idx).textContent = n;
+  gClicked[idx]=true;
+  if(gClicked[0]&&gClicked[1]&&gClicked[2]){
+    gOver=true;
+    const v0=document.getElementById('gn0').textContent;
+    const v1=document.getElementById('gn1').textContent;
+    const v2=document.getElementById('gn2').textContent;
+    const msg = document.getElementById('gamble-msg');
+    if(v0===v1&&v1===v2){
+      msg.textContent='🎉 Success! 클릭하면 다시 시작';
+      msg.style.color='#2a7edb';
+    } else {
+      msg.textContent='😢 Fail. 클릭하면 다시 시작';
+      msg.style.color='#cc4488';
+    }
+    document.getElementById('gamble-hint').style.display='none';
+  }
+}
+
+/* ===== 설문지 ===== */
+function surveySubmit(){
+  const grade = document.querySelector('input[name="grade"]:checked').value;
+  const gender = document.querySelector('input[name="gender"]:checked')?.value || '미선택';
+  const interest = document.getElementById('survey-interest').value;
+  const careers = [...document.querySelectorAll('input[name="career"]:checked')].map(c=>c.value);
+  const msg = document.getElementById('survey-msg').value.trim();
+  const gradeLabel = grade+'학년';
+  const genderLabel = gender==='m'?'남':'여';
+  const interestLabel = {mobile:'모바일 소프트웨어',web:'웹 프로그래밍',ai:'인공지능'}[interest];
+  const careerLabel = careers.length ? careers.map(c=>({dev:'개발',plan:'기획',sales:'영업',startup:'창업'})[c]).join(', ') : '없음';
+  const result = document.getElementById('survey-result');
+  result.style.display='block';
+  result.innerHTML =
+    '✅ <strong>제출이 완료되었습니다!</strong><br><br>' +
+    '학년: '+gradeLabel+'<br>' +
+    '성별: '+genderLabel+'<br>' +
+    '관심 분야: '+interestLabel+'<br>' +
+    '진로: '+careerLabel+'<br>' +
+    (msg ? '남긴 말: '+msg : '');
+}
+
+/* 초기화 */
+buildSliders();
+</script>
 </body>
 </html>
